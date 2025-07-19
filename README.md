@@ -1,290 +1,96 @@
-Welcome to your new TanStack app! 
 
-# Getting Started
+# Documentación Técnica del Proyecto
 
-To run this application:
+## 1. Estructura General
 
-```bash
-npm install
-npm run start  
+El proyecto sigue una arquitectura **modular y escalable**, separando claramente la lógica de presentación, dominio, acceso a datos, estado global y utilidades. Esto facilita el mantenimiento, la extensibilidad y la colaboración en equipo.
+
+```
+src/
+  api/           # Capa de acceso a datos (datasource, repositorios, dominio)
+  components/    # Componentes UI reutilizables y modulares
+  hooks/         # Custom hooks para lógica reutilizable
+  integrations/  # Integraciones externas (ej: tanstack-query)
+  lib/           # Utilidades generales
+  routes/        # Rutas y vistas principales
+  store/         # Estado global (ej: tema)
+  types/         # Tipos y validaciones globales
+  utils/         # Helpers de dominio
+  styles.css     # Estilos globales (Tailwind + custom dark mode)
+  main.tsx       # Punto de entrada de la app
 ```
 
-# Building For Production
+---
 
-To build this application for production:
+## 2. Principales Decisiones Técnicas
 
-```bash
-npm run build
-```
+### a) **React + TypeScript**
+- Permite desarrollo robusto, tipado seguro y escalabilidad.
+- Mejora la mantenibilidad y reduce errores en tiempo de desarrollo.
 
-## Testing
+### b) **TailwindCSS + Custom Dark Mode**
+- Tailwind para estilos utilitarios rápidos y consistentes.
+- Se implementó un dark mode profesional, con variables CSS y overrides manuales para asegurar compatibilidad visual incluso si Tailwind no genera todas las clases dark.
+- El archivo `styles.css` centraliza la paleta y los estilos globales.
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+### c) **Gestión de Estado Global con Zustand**
+- El store en `store/themeStore.ts` permite alternar el tema de la app de forma global y reactiva.
+- Se priorizó Zustand por su simplicidad y performance para estados globales pequeños.
 
-```bash
-npm run test
-```
+### d) **Gestión de Datos con TanStack Query**
+- Permite manejo eficiente de datos remotos, caché, sincronización y estados de carga/error.
+- La integración está centralizada en `integrations/tanstack-query/root-provider.tsx`.
 
-## Styling
+### e) **Arquitectura de Capas en la API**
+- `api/datasource/`, `api/impl/`, `api/domain/` separan la definición, implementación y acceso a datos.
+- Permite cambiar la fuente de datos (ej: LocalStorage, API REST) sin afectar el resto de la app.
+- Uso de repositorios para desacoplar la lógica de negocio del almacenamiento.
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+### f) **Tipado y Validación con Zod**
+- Los tipos en `types/` usan Zod para validación y tipado runtime, asegurando integridad de datos en formularios y API.
 
+### g) **Componentes Modulares y Reutilizables**
+- Componentes como `EventCard`, `BalanceSection`, `EditUserModal`, `EventForm`, etc., siguen el principio de responsabilidad única.
+- Formularios desacoplados y reutilizables, con inputs y selects custom.
 
+### h) **Custom Hooks**
+- Hooks como `useUser`, `useEvents`, `useBalance` encapsulan lógica de negocio y acceso a datos, promoviendo reutilización y separación de concerns.
 
+### i) **Ruteo Declarativo con TanStack Router**
+- Navegación basada en archivos y componentes, facilitando la organización de vistas y subrutas.
 
-## Routing
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
+---
 
-### Adding A Route
+## 3. Justificación de Herramientas y Patrones
 
-To add a new route to your application just add another a new file in the `./src/routes` directory.
+- **TailwindCSS:** Permite iterar rápido en el diseño, con clases utilitarias y soporte para dark mode.
+- **Zustand:** Suficiente para el manejo de tema y estados globales simples, sin la complejidad de Redux.
+- **TanStack Query:** Eficiencia en el manejo de datos asíncronos, caché y sincronización automática.
+- **Arquitectura de Capas:** Facilita testing, mantenimiento y escalabilidad.
+- **Custom Hooks:** Promueven DRY y lógica compartida.
+- **Validación con Zod:** Seguridad en los datos desde el frontend.
+- **Variables CSS para dark mode:** Permiten un dark mode profesional, consistente y fácil de mantener.
 
-TanStack will automatically generate the content of the route file for you.
+---
 
-Now that you have two routes you can use a `Link` component to navigate between them.
+## 4. Experiencia de Usuario
 
-### Adding Links
+- **Dark mode profesional**: Visualmente atractivo, consistente y accesible.
+- **Componentes visuales modernos**: Botones, inputs, tarjetas y modales estilizados.
+- **Feedback inmediato**: Previsualización de imágenes, estados de carga y error claros.
+- **Navegación fluida**: Ruteo declarativo y modular.
 
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
+---
 
-```tsx
-import { Link } from "@tanstack/react-router";
-```
+## 5. Extensibilidad
 
-Then anywhere in your JSX you can use it like so:
+- La arquitectura permite agregar nuevas fuentes de datos, vistas, hooks o componentes sin romper la app.
+- El uso de tipos y validaciones facilita la integración de nuevas funcionalidades y la colaboración en equipo.
 
-```tsx
-<Link to="/about">About</Link>
-```
+---
 
-This will create a link that will navigate to the `/about` route.
+## 6. Conclusión
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+El proyecto está diseñado para ser **profesional, mantenible y escalable**, usando herramientas modernas y patrones recomendados en la industria.  
+Cada decisión técnica fue tomada para maximizar la calidad del código, la experiencia de usuario y la facilidad de evolución del producto.
 
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you use the `<Outlet />` component.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import { Link } from "@tanstack/react-router";
-
-export const Route = createRootRoute({
-  component: () => (
-    <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-      </header>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
-```
-
-The `<TanStackRouterDevtools />` component is not required so you can remove it if you don't want it in your layout.
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-const peopleRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/people",
-  loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
-    return response.json() as Promise<{
-      results: {
-        name: string;
-      }[];
-    }>;
-  },
-  component: () => {
-    const data = peopleRoute.useLoaderData();
-    return (
-      <ul>
-        {data.results.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    );
-  },
-});
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-### React-Query
-
-React-Query is an excellent addition or alternative to route loading and integrating it into you application is a breeze.
-
-First add your dependencies:
-
-```bash
-npm install @tanstack/react-query @tanstack/react-query-devtools
-```
-
-Next we'll need to create a query client and provider. We recommend putting those in `main.tsx`.
-
-```tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// ...
-
-const queryClient = new QueryClient();
-
-// ...
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
-}
-```
-
-You can also add TanStack Query Devtools to the root route (optional).
-
-```tsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools buttonPosition="top-right" />
-      <TanStackRouterDevtools />
-    </>
-  ),
-});
-```
-
-Now you can use `useQuery` to fetch your data.
-
-```tsx
-import { useQuery } from "@tanstack/react-query";
-
-import "./App.css";
-
-function App() {
-  const { data } = useQuery({
-    queryKey: ["people"],
-    queryFn: () =>
-      fetch("https://swapi.dev/api/people")
-        .then((res) => res.json())
-        .then((data) => data.results as { name: string }[]),
-    initialData: [],
-  });
-
-  return (
-    <div>
-      <ul>
-        {data.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
-You can find out everything you need to know on how to use React-Query in the [React-Query documentation](https://tanstack.com/query/latest/docs/framework/react/overview).
-
-## State Management
-
-Another common requirement for React applications is state management. There are many options for state management in React. TanStack Store provides a great starting point for your project.
-
-First you need to add TanStack Store as a dependency:
-
-```bash
-npm install @tanstack/store
-```
-
-Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-function App() {
-  const count = useStore(countStore);
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-    </div>
-  );
-}
-
-export default App;
-```
-
-One of the many nice features of TanStack Store is the ability to derive state from other state. That derived state will update when the base state updates.
-
-Let's check this out by doubling the count using derived state.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-const doubledStore = new Derived({
-  fn: () => countStore.state * 2,
-  deps: [countStore],
-});
-doubledStore.mount();
-
-function App() {
-  const count = useStore(countStore);
-  const doubledCount = useStore(doubledStore);
-
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-      <div>Doubled - {doubledCount}</div>
-    </div>
-  );
-}
-
-export default App;
-```
-
-We use the `Derived` class to create a new store that is derived from another store. The `Derived` class has a `mount` method that will start the derived store updating.
-
-Once we've created the derived store we can use it in the `App` component just like we would any other store using the `useStore` hook.
-
-You can find out everything you need to know on how to use TanStack Store in the [TanStack Store documentation](https://tanstack.com/store/latest).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
