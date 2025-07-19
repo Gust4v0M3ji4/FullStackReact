@@ -1,0 +1,204 @@
+
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+
+/* === DARK MODE GLOBAL STYLES (PALETA UNIFICADA) === */
+
+:root {
+  --dark-bg: #18181b;
+  --dark-surface: #23232a;
+  --dark-header: #1f2937;
+  --dark-text: #f3f4f6;
+  --dark-border: #374151;
+  --dark-morado: #8b5cf6;
+  --dark-morado-hover: #a78bfa;
+  --dark-link: #a5b4fc;
+  --dark-green: #22c55e;
+  --dark-red: #ef4444;
+  --dark-yellow: #fde68a;
+}
+
+/* Fondo general */
+html.dark body,
+html.dark .min-h-screen,
+html.dark .bg-white,
+html.dark .bg-zinc-900 {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+
+/* Header */
+html.dark header {
+  background: var(--dark-header) !important;
+  color: #fff !important;
+  border-bottom: 1px solid var(--dark-border) !important;
+}
+
+/* Links */
+html.dark a {
+  color: var(--dark-link) !important;
+}
+
+/* Tarjetas, secciones, contenedores */
+html.dark .card,
+html.dark .section,
+html.dark .container,
+html.dark .event-card,
+html.dark .balance-section,
+html.dark .bg-gray-100 {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+
+/* Inputs y selects */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: #52525b !important;
+}
+
+/* Placeholder de inputs */
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #a1a1aa !important;
+}
+
+/* Botones generales */
+html.dark button {
+  background: var(--dark-morado) !important;
+  color: #fff !important;
+  border-color: var(--dark-morado) !important;
+  transition: background 0.2s;
+}
+html.dark button:hover {
+  background: var(--dark-morado-hover) !important;
+}
+
+/* Botón de toggle de tema */
+html.dark .theme-toggle,
+html.dark .theme-toggle-button {
+  background: var(--dark-surface) !important;
+  color: var(--dark-yellow) !important;
+  border: 1px solid #fff !important;
+}
+
+/* Bordes generales */
+html.dark .border,
+html.dark .border-b,
+html.dark .border-t,
+html.dark .border-l,
+html.dark .border-r,
+html.dark th, html.dark td {
+  border-color: var(--dark-border) !important;
+}
+
+/* Textos destacados */
+html.dark .text-violet-400 {
+  color: var(--dark-morado-hover) !important;
+}
+html.dark .text-yellow-400 {
+  color: var(--dark-yellow) !important;
+}
+html.dark .text-green-500 {
+  color: var(--dark-green) !important;
+}
+html.dark .text-red-500,
+html.dark .text-red-600 {
+  color: var(--dark-red) !important;
+}
+
+/* Sombra para tarjetas */
+html.dark .shadow-md {
+  box-shadow: 0 4px 6px -1px #0006, 0 2px 4px -2px #0006 !important;
+}
+
+/* Ajuste para títulos */
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+  color: #fff !important;
+}
+
+/* Ajuste para tablas (si tienes) */
+html.dark table {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+
+/* Ajuste para scrollbars (opcional, visual pro) */
+html.dark ::-webkit-scrollbar {
+  background: var(--dark-surface);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #3b3b3b;
+}
+
+/* === HOVERS EN DARK MODE === */
+
+/* Botones hover */
+html.dark button:hover {
+  background: var(--dark-morado-hover, #a78bfa) !important;
+  color: #fff !important;
+}
+
+/* Tarjetas, contenedores, event cards hover */
+html.dark .card:hover,
+html.dark .section:hover,
+html.dark .container:hover,
+html.dark .event-card:hover,
+html.dark .balance-section:hover {
+  background: color-mix(in srgb, var(--dark-surface, #23232a) 90%, #fff 10%) !important;
+}
+
+/* Links hover */
+html.dark a:hover {
+  background: color-mix(in srgb, var(--dark-link, #a5b4fc) 20%, var(--dark-bg, #18181b) 80%) !important;
+  color: var(--dark-link, #a5b4fc) !important;
+  text-decoration: underline;
+}
+
+/* Inputs hover */
+html.dark input:hover,
+html.dark select:hover,
+html.dark textarea:hover {
+  background: color-mix(in srgb, var(--dark-surface, #23232a) 80%, #fff 20%) !important;
+  border-color: var(--dark-morado-hover, #a78bfa) !important;
+}
+
+/* Puedes agregar más reglas de hover según tus componentes personalizados */
+
+.dark {
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.141 0.005 285.823);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.141 0.005 285.823);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.21 0.006 285.885);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
+    --accent: oklch(0.274 0.006 286.033);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.274 0.006 286.033);
+    --input: oklch(0.274 0.006 286.033);
+    --ring: oklch(0.442 0.017 285.786);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.21 0.006 285.885);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.274 0.006 286.033);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.274 0.006 286.033);
+    --sidebar-ring: oklch(0.442 0.017 285.786);
+  }
