@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const EventCard = ({ month, events, balance }: Props) => {
-  console.log("Eventos en Card:", events);
+ 
 
   return (
     <article className="p-[1rem] flex w-[22rem]">

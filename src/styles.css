@@ -166,6 +166,11 @@ html.dark textarea:hover {
   border-color: var(--dark-morado-hover, #a78bfa) !important;
 }
 
+/* Transiciones suaves para dark mode */
+html, body, header, .card, .section, .container, .event-card, .balance-section, input, select, textarea, button {
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+
 /* Puedes agregar más reglas de hover según tus componentes personalizados */
 
 .dark {

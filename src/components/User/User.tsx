@@ -21,8 +21,8 @@ const User = ({ user }: Props) => {
         <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
           Welcome <span className="text-violet-600 font-bold">{user.name}</span>
         </h1>
-        <p className="text-md text-gray-600 dark:text-gray-300">
-          This is your Walletfy app you can work here to see your economics
+        <p className="text-md text-gray-600 pt-4 dark:text-gray-300">
+          Esta es tu aplicación Walletfy, puedes trabajar aquí para gestionar tu balance.
         </p>
         <p className="text-md text-gray-600 dark:text-gray-300">
           Age: {user.age}
