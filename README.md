@@ -94,3 +94,9 @@ src/
 El proyecto está diseñado para ser **profesional, mantenible y escalable**, usando herramientas modernas y patrones recomendados en la industria.  
 Cada decisión técnica fue tomada para maximizar la calidad del código, la experiencia de usuario y la facilidad de evolución del producto.
 
+---
+
+## 7. Adicional
+
+Decidi simular un usuario para darle un mayor sentimiento de uso a la aplicacion, aunque hubiese sido mejor poder manejar un log in y register por usuario
+
